@@ -1,6 +1,6 @@
 // SEO + AI content for every page. Single source of truth for titles, descriptions, how-tos and FAQs.
 export const SITE = {
-  url: 'https://excel.gumber.ai',
+  url: 'https://exceltools.gumber.ai',
   name: 'Excel Tools by gumber.ai',
   brand: 'Excel Tools by gumber.ai',
   tagline: 'Free, private Excel & CSV tools that run in your browser',

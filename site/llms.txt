@@ -10,37 +10,37 @@ Key facts:
 
 ## Convert
 
-- [Excel to CSV](https://excel.gumber.ai/excel-to-csv): Convert XLSX/XLS sheets to CSV with your choice of delimiter. Export one sheet or all.
-- [CSV to Excel](https://excel.gumber.ai/csv-to-excel): Turn CSV, TSV or delimited text into a proper .xlsx workbook. Auto-detects delimiters and numbers.
-- [Excel to JSON](https://excel.gumber.ai/excel-to-json): Convert spreadsheets to JSON arrays or objects. Supports nested keys like "address.city".
-- [JSON to Excel](https://excel.gumber.ai/json-to-excel): Paste or upload JSON and get a clean spreadsheet. Nested objects are flattened into columns.
-- [PDF to Excel](https://excel.gumber.ai/pdf-to-excel): Extract tables and text from digital PDFs into rows and columns.
-- [Image to Excel (OCR)](https://excel.gumber.ai/image-to-excel): Read tables from screenshots, photos or scans and turn them into a spreadsheet.
+- [Excel to CSV](https://exceltools.gumber.ai/excel-to-csv): Convert XLSX/XLS sheets to CSV with your choice of delimiter. Export one sheet or all.
+- [CSV to Excel](https://exceltools.gumber.ai/csv-to-excel): Turn CSV, TSV or delimited text into a proper .xlsx workbook. Auto-detects delimiters and numbers.
+- [Excel to JSON](https://exceltools.gumber.ai/excel-to-json): Convert spreadsheets to JSON arrays or objects. Supports nested keys like "address.city".
+- [JSON to Excel](https://exceltools.gumber.ai/json-to-excel): Paste or upload JSON and get a clean spreadsheet. Nested objects are flattened into columns.
+- [PDF to Excel](https://exceltools.gumber.ai/pdf-to-excel): Extract tables and text from digital PDFs into rows and columns.
+- [Image to Excel (OCR)](https://exceltools.gumber.ai/image-to-excel): Read tables from screenshots, photos or scans and turn them into a spreadsheet.
 
 ## Merge & Split
 
-- [Merge Excel Files](https://excel.gumber.ai/merge-excel): Combine multiple workbooks into one sheet or one workbook. Columns are matched by header name.
-- [CSV Merger](https://excel.gumber.ai/csv-merger): Join many CSV files into a single CSV, lining up columns by header.
-- [Excel Splitter](https://excel.gumber.ai/excel-splitter): Split a workbook by sheet, by row count, into equal parts, or by the values in a column.
+- [Merge Excel Files](https://exceltools.gumber.ai/merge-excel): Combine multiple workbooks into one sheet or one workbook. Columns are matched by header name.
+- [CSV Merger](https://exceltools.gumber.ai/csv-merger): Join many CSV files into a single CSV, lining up columns by header.
+- [Excel Splitter](https://exceltools.gumber.ai/excel-splitter): Split a workbook by sheet, by row count, into equal parts, or by the values in a column.
 
 ## Clean, Compare & Lookup
 
-- [Compare Excel Files](https://excel.gumber.ai/compare-excel): Spot changed cells, added rows and removed rows between two versions of a sheet.
-- [Remove Duplicates](https://excel.gumber.ai/remove-duplicates): Find and remove duplicate rows based on all columns or just the ones you pick.
-- [Excel VLOOKUP](https://excel.gumber.ai/vlookup): Pull matching values from a second table into your sheet — no formulas, no #REF errors.
-- [XLOOKUP / INDEX-MATCH](https://excel.gumber.ai/xlookup): Look up any column in any direction and return one or many result columns.
-- [HLOOKUP Tool](https://excel.gumber.ai/hlookup): Lookups for horizontal tables where headers run down the first column.
-- [Multi-Criteria Lookup](https://excel.gumber.ai/multi-criteria-lookup): Match rows on two or more columns at once, e.g. Name + Date.
-- [Excel Fuzzy Lookup](https://excel.gumber.ai/fuzzy-lookup): Match names that are almost the same — typos, abbreviations and spacing differences.
-- [Combine Columns](https://excel.gumber.ai/combine-columns): Join two or more columns into one with any separator — e.g. First + Last name.
-- [Mail Merge](https://excel.gumber.ai/mail-merge): Generate personalised letters, emails or messages from a spreadsheet and a template.
+- [Compare Excel Files](https://exceltools.gumber.ai/compare-excel): Spot changed cells, added rows and removed rows between two versions of a sheet.
+- [Remove Duplicates](https://exceltools.gumber.ai/remove-duplicates): Find and remove duplicate rows based on all columns or just the ones you pick.
+- [Excel VLOOKUP](https://exceltools.gumber.ai/vlookup): Pull matching values from a second table into your sheet — no formulas, no #REF errors.
+- [XLOOKUP / INDEX-MATCH](https://exceltools.gumber.ai/xlookup): Look up any column in any direction and return one or many result columns.
+- [HLOOKUP Tool](https://exceltools.gumber.ai/hlookup): Lookups for horizontal tables where headers run down the first column.
+- [Multi-Criteria Lookup](https://exceltools.gumber.ai/multi-criteria-lookup): Match rows on two or more columns at once, e.g. Name + Date.
+- [Excel Fuzzy Lookup](https://exceltools.gumber.ai/fuzzy-lookup): Match names that are almost the same — typos, abbreviations and spacing differences.
+- [Combine Columns](https://exceltools.gumber.ai/combine-columns): Join two or more columns into one with any separator — e.g. First + Last name.
+- [Mail Merge](https://exceltools.gumber.ai/mail-merge): Generate personalised letters, emails or messages from a spreadsheet and a template.
 
 ## View & Optimize
 
-- [Online Excel Viewer](https://excel.gumber.ai/excel-viewer): Open XLSX, XLS, ODS and CSV files in your browser. Search and browse every sheet.
-- [Compress Excel](https://excel.gumber.ai/compress-excel): Shrink bloated XLSX/XLS files by rewriting them with maximum compression.
+- [Online Excel Viewer](https://exceltools.gumber.ai/excel-viewer): Open XLSX, XLS, ODS and CSV files in your browser. Search and browse every sheet.
+- [Compress Excel](https://exceltools.gumber.ai/compress-excel): Shrink bloated XLSX/XLS files by rewriting them with maximum compression.
 
 ## Optional
 
-- [About, limitations & disclaimer](https://excel.gumber.ai/about)
-- [Full tool documentation for LLMs](https://excel.gumber.ai/llms-full.txt)
+- [About, limitations & disclaimer](https://exceltools.gumber.ai/about)
+- [Full tool documentation for LLMs](https://exceltools.gumber.ai/llms-full.txt)

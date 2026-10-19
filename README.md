@@ -1,4 +1,4 @@
-# excel.gumber.ai
+# exceltools.gumber.ai
 
 Free, private spreadsheet tools that run entirely in the browser — files are never uploaded.
 
@@ -32,7 +32,7 @@ node scripts/serve.mjs   # http://localhost:8765
 ## Deploy (Cloudflare Pages)
 
 Connect the GitHub repo in Cloudflare Pages with no build command and output directory `site`,
-then add the custom domain `excel.gumber.ai`. After launch, submit `https://excel.gumber.ai/sitemap.xml`
+then add the custom domain `exceltools.gumber.ai`. After launch, submit `https://exceltools.gumber.ai/sitemap.xml`
 in Google Search Console and Bing Webmaster Tools.
 
 ## Disclaimer

@@ -1,4 +1,4 @@
-# Excel Tools by gumber.ai (excel.gumber.ai) — search engines and AI assistants are welcome.
+# Excel Tools by gumber.ai (exceltools.gumber.ai) — search engines and AI assistants are welcome.
 User-agent: *
 Allow: /
 Disallow: /404
@@ -54,4 +54,4 @@ Allow: /
 User-agent: MistralAI-User
 Allow: /
 
-Sitemap: https://excel.gumber.ai/sitemap.xml
+Sitemap: https://exceltools.gumber.ai/sitemap.xml

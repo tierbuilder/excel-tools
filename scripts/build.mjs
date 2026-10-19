@@ -184,7 +184,7 @@ ${urls.map(u => `  <url><loc>${abs(u)}</loc><lastmod>${TODAY}</lastmod><changefr
 `);
 
 const AI_BOTS = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-User', 'Claude-SearchBot', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'Bingbot', 'CCBot', 'cohere-ai', 'Meta-ExternalAgent', 'DuckAssistBot', 'MistralAI-User'];
-write('robots.txt', `# Excel Tools by gumber.ai (excel.gumber.ai) — search engines and AI assistants are welcome.
+write('robots.txt', `# Excel Tools by gumber.ai (exceltools.gumber.ai) — search engines and AI assistants are welcome.
 User-agent: *
 Allow: /
 Disallow: /404
