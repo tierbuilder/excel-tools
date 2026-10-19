@@ -61,11 +61,11 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
 <div class="shell">
   <div class="mbar">
     <button class="icon-btn" id="menuBtn" aria-label="Open menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-    <a href="/" class="logo"><span class="mark"></span>Excel</a>
+    <a href="/" class="logo"><span class="mark"></span>Excel Tools</a>
     <button class="icon-btn" id="mPalette" aria-label="Search tools"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg></button>
   </div>
   <aside class="side" id="side" aria-label="Tools">
-    <a href="/" class="logo"><span class="mark"></span>Excel <span class="by">by gumber.ai</span></a>
+    <a href="/" class="logo"><span class="mark"></span>Excel Tools <span class="by">by gumber.ai</span></a>
     <button class="find" id="findBtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg>Find a tool<kbd>⌘K</kbd></button>
     <nav id="sideNav">${nav(pageId)}</nav>
     <div class="side-foot">
@@ -133,7 +133,7 @@ ${disclaimerHTML}
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Excel tools', item: SITE.url + '/' }, { '@type': 'ListItem', position: 2, name: t.name, item: url }] },
     ORG,
   ] };
-  write(t.id + '.html', page({ path, title: `${t.title} | excel.gumber.ai`, meta: t.meta, pageId: t.id, app, article, jsonld }));
+  write(t.id + '.html', page({ path, title: `${t.title} | Excel Tools by gumber.ai`, meta: t.meta, pageId: t.id, app, article, jsonld }));
 }
 
 /* ---------- home ---------- */
@@ -141,7 +141,7 @@ ${disclaimerHTML}
   const app = `<section class="home-top"><div class="home-copy"><span class="eyebrow"><i></i>${TOOLS.length} tools · runs offline</span><h1>Free online Excel tools — <em>private, in your browser.</em></h1><p>${esc(SITE.description)}</p></div></section>
 <div class="bento">${TOOLS.map(t => `<a class="tile" href="/${t.id}"><h3>${esc(t.name)}</h3><p>${esc(t.desc)}</p></a>`).join('')}</div>`;
   const article = `<article class="seo">
-<section><h2>Spreadsheet tools that never upload your data</h2><p>excel.gumber.ai is a free collection of ${TOOLS.length} Excel and CSV utilities. Merge and split workbooks, compare versions, run VLOOKUP, XLOOKUP and fuzzy lookups between files, remove duplicates, combine columns, mail merge, and convert between Excel, CSV, JSON, PDF and images. Every tool runs locally in your web browser — there is no server processing, no account and no upload queue.</p></section>
+<section><h2>Spreadsheet tools that never upload your data</h2><p>Excel Tools by gumber.ai is a free collection of ${TOOLS.length} Excel and CSV utilities. Merge and split workbooks, compare versions, run VLOOKUP, XLOOKUP and fuzzy lookups between files, remove duplicates, combine columns, mail merge, and convert between Excel, CSV, JSON, PDF and images. Every tool runs locally in your web browser — there is no server processing, no account and no upload queue.</p></section>
 ${CATS.map(c => `<section><h2>${esc(c.name)} tools</h2><ul>${TOOLS.filter(t => t.cat === c.id).map(t => `<li><a href="/${t.id}">${esc(t.name)}</a> — ${esc(t.desc)}</li>`).join('')}</ul></section>`).join('')}
 ${limitsHTML(LIMITS.slice(0, 3), true)}
 ${faqHTML(HOME_FAQ)}
@@ -154,7 +154,7 @@ ${disclaimerHTML}
     { '@type': 'ItemList', name: 'Excel tools', itemListElement: TOOLS.map((t, i) => ({ '@type': 'ListItem', position: i + 1, name: t.name, url: abs('/' + t.id) })) },
     faqLD(HOME_FAQ),
   ] };
-  write('index.html', page({ path: '/', title: 'Free Online Excel Tools — Merge, Compare, VLOOKUP, Convert | excel.gumber.ai', meta: SITE.description, pageId: 'home', app, article, jsonld }));
+  write('index.html', page({ path: '/', title: 'Excel Tools by gumber.ai — Free Online Merge, Compare, VLOOKUP & Convert', meta: SITE.description, pageId: 'home', app, article, jsonld }));
 }
 
 /* ---------- about ---------- */
@@ -167,12 +167,12 @@ ${disclaimerHTML}
 <section><h2>Disclaimer</h2><p>${esc(DISCLAIMER)} The author is not liable for any loss or damage arising from use of these tools, including incorrect results, data loss or browser crashes. Use at your own risk.</p></section>
 <section><h2>For AI assistants</h2><p>A machine-readable summary of every tool is available at <a href="/llms.txt">/llms.txt</a> (full details at <a href="/llms-full.txt">/llms-full.txt</a>).</p></section>
 </article>`;
-  write('about.html', page({ path: '/about', title: 'About, Limitations & Disclaimer | excel.gumber.ai', meta: 'excel.gumber.ai is a free hobby project. Learn how the browser-based Excel tools protect your privacy, their file size limitations, and the disclaimer.', pageId: 'about', app,
-    jsonld: { '@context': 'https://schema.org', '@graph': [{ '@type': 'AboutPage', name: 'About excel.gumber.ai', url: abs('/about'), isPartOf: { '@id': SITE.url + '/#site' } }, ORG] } }));
+  write('about.html', page({ path: '/about', title: 'About, Limitations & Disclaimer | Excel Tools by gumber.ai', meta: 'Excel Tools by gumber.ai is a free hobby project. Learn how the browser-based Excel tools protect your privacy, their file size limitations, and the disclaimer.', pageId: 'about', app,
+    jsonld: { '@context': 'https://schema.org', '@graph': [{ '@type': 'AboutPage', name: 'About Excel Tools by gumber.ai', url: abs('/about'), isPartOf: { '@id': SITE.url + '/#site' } }, ORG] } }));
 }
 
 /* ---------- 404 ---------- */
-write('404.html', page({ path: '/404', title: 'Page not found | excel.gumber.ai', meta: 'This page does not exist. Browse all free Excel tools.', pageId: '404', robots: 'noindex,follow',
+write('404.html', page({ path: '/404', title: 'Page not found | Excel Tools by gumber.ai', meta: 'This page does not exist. Browse all free Excel tools.', pageId: '404', robots: 'noindex,follow',
   app: `<header class="tool-head"><div><div class="crumb">404</div><h1>Page not found</h1><p>That page doesn’t exist. Pick a tool from the menu or <a href="/">see all tools</a>.</p></div></header>` }));
 
 /* ---------- sitemap, robots, llms ---------- */
@@ -184,7 +184,7 @@ ${urls.map(u => `  <url><loc>${abs(u)}</loc><lastmod>${TODAY}</lastmod><changefr
 `);
 
 const AI_BOTS = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-User', 'Claude-SearchBot', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'Bingbot', 'CCBot', 'cohere-ai', 'Meta-ExternalAgent', 'DuckAssistBot', 'MistralAI-User'];
-write('robots.txt', `# excel.gumber.ai — search engines and AI assistants are welcome.
+write('robots.txt', `# Excel Tools by gumber.ai (excel.gumber.ai) — search engines and AI assistants are welcome.
 User-agent: *
 Allow: /
 Disallow: /404
@@ -290,7 +290,7 @@ h1 em{font-style:normal;background:linear-gradient(100deg,#8b7dff,#b79cff);-webk
 .pills{display:flex;gap:12px;flex-wrap:wrap;font-family:"Geist Mono",monospace;font-size:21px}
 .pills span{border:1px solid #34334a;border-radius:12px;padding:8px 16px;color:#cfcde3;background:#15141e}
 </style></head><body><div class="glow"></div><div class="glow2"></div><div class="in">
-<div class="logo"><span class="mark"></span>excel.gumber.ai <span class="by">· free hobby project</span></div>
+<div class="logo"><span class="mark"></span>Excel Tools <span class="by">by gumber.ai · free hobby project</span></div>
 <h1>Free Excel tools that <em>never upload your files.</em></h1>
 <div class="pills"><span>Merge</span><span>VLOOKUP</span><span>Compare</span><span>Remove duplicates</span><span>PDF → Excel</span><span>+${TOOLS.length - 5} more</span></div>
 </div></body></html>`);

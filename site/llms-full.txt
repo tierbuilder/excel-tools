@@ -14,7 +14,7 @@ Price: free (hobby project). Privacy: all processing happens locally in the brow
 - Fuzzy lookups compare every unmatched value against the lookup table, so very large tables (tens of thousands of rows on both sides) can take a while.
 
 ## Disclaimer
-excel.gumber.ai is a hobby project and is completely free to use. It is provided “as is”, without warranty of any kind. Always double-check results before relying on them, and keep a copy of your original files.
+Excel Tools by gumber.ai is a hobby project and is completely free to use. It is provided “as is”, without warranty of any kind. Always double-check results before relying on them, and keep a copy of your original files.
 
 ---
 
@@ -438,7 +438,7 @@ FAQ:
 
 ## General FAQ
 - Q: Are these Excel tools really free?
-  A: Yes. excel.gumber.ai is a free hobby project — no sign-up, no watermark, no paid tier and no file count limits.
+  A: Yes. Excel Tools by gumber.ai is a free hobby project — no sign-up, no watermark, no paid tier and no file count limits.
 - Q: Are my files uploaded to a server?
   A: No. Every tool runs entirely in your web browser using JavaScript. Your spreadsheets never leave your device, which also makes the tools work on confidential data.
 - Q: Which file formats are supported?

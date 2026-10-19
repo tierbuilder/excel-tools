@@ -1,4 +1,4 @@
-# excel.gumber.ai — search engines and AI assistants are welcome.
+# Excel Tools by gumber.ai (excel.gumber.ai) — search engines and AI assistants are welcome.
 User-agent: *
 Allow: /
 Disallow: /404

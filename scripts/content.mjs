@@ -1,7 +1,7 @@
 // SEO + AI content for every page. Single source of truth for titles, descriptions, how-tos and FAQs.
 export const SITE = {
   url: 'https://excel.gumber.ai',
-  name: 'excel.gumber.ai',
+  name: 'Excel Tools by gumber.ai',
   brand: 'Excel Tools by gumber.ai',
   tagline: 'Free, private Excel & CSV tools that run in your browser',
   description: 'Free online Excel and CSV tools — merge, split, compare, convert, VLOOKUP, remove duplicates and more. Everything runs in your browser, so files are never uploaded. No sign-up.',
@@ -24,10 +24,10 @@ export const LIMITS = [
   'Fuzzy lookups compare every unmatched value against the lookup table, so very large tables (tens of thousands of rows on both sides) can take a while.',
 ];
 
-export const DISCLAIMER = 'excel.gumber.ai is a hobby project and is completely free to use. It is provided “as is”, without warranty of any kind. Always double-check results before relying on them, and keep a copy of your original files.';
+export const DISCLAIMER = 'Excel Tools by gumber.ai is a hobby project and is completely free to use. It is provided “as is”, without warranty of any kind. Always double-check results before relying on them, and keep a copy of your original files.';
 
 export const HOME_FAQ = [
-  ['Are these Excel tools really free?', 'Yes. excel.gumber.ai is a free hobby project — no sign-up, no watermark, no paid tier and no file count limits.'],
+  ['Are these Excel tools really free?', 'Yes. Excel Tools by gumber.ai is a free hobby project — no sign-up, no watermark, no paid tier and no file count limits.'],
   ['Are my files uploaded to a server?', 'No. Every tool runs entirely in your web browser using JavaScript. Your spreadsheets never leave your device, which also makes the tools work on confidential data.'],
   ['Which file formats are supported?', 'XLSX, XLSM, XLSB, XLS, ODS, CSV, TSV and TXT spreadsheets, plus JSON, PDF (digital) and images (PNG, JPG, WEBP) for the conversion tools.'],
   ['How big can my file be?', 'It depends on your device’s memory. Files up to about 50 MB or 500,000 rows usually work well on a laptop; phones handle less. Split very large files first.'],
