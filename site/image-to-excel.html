@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image to Excel (OCR) — Convert Screenshot to Table | excel.gumber.ai</title>
+<meta name="description" content="Convert images, screenshots and scans to Excel with free OCR. Supports English, Hindi, Spanish, French, German and more. Runs locally in your browser.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://excel.gumber.ai/image-to-excel">
+<meta name="theme-color" content="#5b4bff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="excel.gumber.ai">
+<meta property="og:title" content="Image to Excel (OCR) — Convert Screenshot to Table | excel.gumber.ai">
+<meta property="og:description" content="Convert images, screenshots and scans to Excel with free OCR. Supports English, Hindi, Spanish, French, German and more. Runs locally in your browser.">
+<meta property="og:url" content="https://excel.gumber.ai/image-to-excel">
+<meta property="og:image" content="https://excel.gumber.ai/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Image to Excel (OCR) — Convert Screenshot to Table | excel.gumber.ai">
+<meta name="twitter:description" content="Convert images, screenshots and scans to Excel with free OCR. Supports English, Hindi, Spanish, French, German and more. Runs locally in your browser.">
+<meta name="twitter:image" content="https://excel.gumber.ai/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Image to Excel (OCR)","url":"https://excel.gumber.ai/image-to-excel","description":"Convert images, screenshots and scans to Excel with free OCR. Supports English, Hindi, Spanish, French, German and more. Runs locally in your browser.","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in a web browser)","browserRequirements":"Requires JavaScript and a modern browser","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://excel.gumber.ai/#org"},"featureList":"Drop a PNG, JPG or WEBP image. Choose the language and how columns are separated. Click “Extract table”, check the result, and download XLSX or CSV."},{"@type":"HowTo","name":"How to use Image to Excel (OCR)","step":[{"@type":"HowToStep","position":1,"text":"Drop a PNG, JPG or WEBP image."},{"@type":"HowToStep","position":2,"text":"Choose the language and how columns are separated."},{"@type":"HowToStep","position":3,"text":"Click “Extract table”, check the result, and download XLSX or CSV."}],"totalTime":"PT1M","tool":{"@type":"HowToTool","name":"A modern web browser"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate is the OCR?","acceptedAnswer":{"@type":"Answer","text":"Clear, high-resolution screenshots work best. Photos with blur, skew or shadows reduce accuracy — always check numbers."}},{"@type":"Question","name":"Why is the first run slow?","acceptedAnswer":{"@type":"Answer","text":"The OCR engine and language data (a few MB) are downloaded once, then cached by your browser."}},{"@type":"Question","name":"Which languages are supported?","acceptedAnswer":{"@type":"Answer","text":"English, Hindi, Spanish, French, German, Portuguese, Italian, Chinese (Simplified), Japanese and Arabic."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Excel tools","item":"https://excel.gumber.ai/"},{"@type":"ListItem","position":2,"name":"Image to Excel (OCR)","item":"https://excel.gumber.ai/image-to-excel"}]},{"@type":"Organization","@id":"https://excel.gumber.ai/#org","name":"gumber.ai","url":"https://gumber.ai"}]}</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script defer src="/app.js"></script>
+</head>
+<body data-page="image-to-excel">
+<a class="skip" href="#app">Skip to content</a>
+<div class="shell">
+  <div class="mbar">
+    <button class="icon-btn" id="menuBtn" aria-label="Open menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a href="/" class="logo"><span class="mark"></span>Excel</a>
+    <button class="icon-btn" id="mPalette" aria-label="Search tools"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg></button>
+  </div>
+  <aside class="side" id="side" aria-label="Tools">
+    <a href="/" class="logo"><span class="mark"></span>Excel <span class="by">by gumber.ai</span></a>
+    <button class="find" id="findBtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg>Find a tool<kbd>⌘K</kbd></button>
+    <nav id="sideNav"><div class="nav-group"><h6>Convert</h6><a class="nav-item" href="/excel-to-csv" data-tool="excel-to-csv">Excel to CSV</a><a class="nav-item" href="/csv-to-excel" data-tool="csv-to-excel">CSV to Excel</a><a class="nav-item" href="/excel-to-json" data-tool="excel-to-json">Excel to JSON</a><a class="nav-item" href="/json-to-excel" data-tool="json-to-excel">JSON to Excel</a><a class="nav-item" href="/pdf-to-excel" data-tool="pdf-to-excel">PDF to Excel</a><a class="nav-item on" href="/image-to-excel" data-tool="image-to-excel">Image to Excel (OCR)</a></div><div class="nav-group"><h6>Merge &amp; Split</h6><a class="nav-item" href="/merge-excel" data-tool="merge-excel">Merge Excel Files</a><a class="nav-item" href="/csv-merger" data-tool="csv-merger">CSV Merger</a><a class="nav-item" href="/excel-splitter" data-tool="excel-splitter">Excel Splitter</a></div><div class="nav-group"><h6>Clean, Compare &amp; Lookup</h6><a class="nav-item" href="/compare-excel" data-tool="compare-excel">Compare Excel Files</a><a class="nav-item" href="/remove-duplicates" data-tool="remove-duplicates">Remove Duplicates</a><a class="nav-item" href="/vlookup" data-tool="vlookup">Excel VLOOKUP</a><a class="nav-item" href="/xlookup" data-tool="xlookup">XLOOKUP / INDEX-MATCH</a><a class="nav-item" href="/hlookup" data-tool="hlookup">HLOOKUP Tool</a><a class="nav-item" href="/multi-criteria-lookup" data-tool="multi-criteria-lookup">Multi-Criteria Lookup</a><a class="nav-item" href="/fuzzy-lookup" data-tool="fuzzy-lookup">Excel Fuzzy Lookup</a><a class="nav-item" href="/combine-columns" data-tool="combine-columns">Combine Columns</a><a class="nav-item" href="/mail-merge" data-tool="mail-merge">Mail Merge</a></div><div class="nav-group"><h6>View &amp; Optimize</h6><a class="nav-item" href="/excel-viewer" data-tool="excel-viewer">Online Excel Viewer</a><a class="nav-item" href="/compress-excel" data-tool="compress-excel">Compress Excel</a></div></nav>
+    <div class="side-foot">
+      <div class="local"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><div><b>Local-only</b><span>Files never leave this device</span></div></div>
+      <a class="hobby" href="/about">Free hobby project · <u>limits &amp; disclaimer</u></a>
+      <div class="foot-row"><span>© <span id="yr">2026</span> gumber.ai</span><button class="icon-btn sm" id="themeBtn" aria-label="Toggle theme"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button></div>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="main">
+    <div id="app"><header class="tool-head"><div><div class="crumb"><a href="/">tools</a> / convert</div><h1>Image to Excel (OCR)</h1><p>Read tables from screenshots, photos or scans and turn them into a spreadsheet.</p></div></header><noscript><p class="warn">This tool needs JavaScript. Your files are processed locally in your browser.</p></noscript></div>
+    <article class="seo">
+<section><h2>About Image to Excel (OCR)</h2><p>Turn a screenshot, photo or scanned table into editable rows and columns. Text recognition runs on your device with Tesseract OCR and supports many languages.</p></section>
+<section><h2>How to use Image to Excel (OCR)</h2><ol><li>Drop a PNG, JPG or WEBP image.</li><li>Choose the language and how columns are separated.</li><li>Click “Extract table”, check the result, and download XLSX or CSV.</li></ol></section>
+<section><h2>Limitations</h2><ul><li>Everything runs in your browser’s memory, so the practical file size depends on your device. As a rough guide: up to ~50 MB or ~500,000 rows works well on a modern laptop; phones and tablets handle much less.</li><li>Very large files can make the tab slow or crash. If that happens, split the file first or use a desktop computer.</li><li>Outputs keep values and formulas’ results but not formatting, charts, images, pivot tables or macros.</li><li>PDF to Excel works on digital PDFs only; scanned pages need the Image to Excel (OCR) tool. OCR accuracy depends on image quality.</li></ul><p><a href="/about#limitations">See all limitations</a></p></section>
+<section><h2>Frequently asked questions</h2><details><summary>How accurate is the OCR?</summary><p>Clear, high-resolution screenshots work best. Photos with blur, skew or shadows reduce accuracy — always check numbers.</p></details><details><summary>Why is the first run slow?</summary><p>The OCR engine and language data (a few MB) are downloaded once, then cached by your browser.</p></details><details><summary>Which languages are supported?</summary><p>English, Hindi, Spanish, French, German, Portuguese, Italian, Chinese (Simplified), Japanese and Arabic.</p></details></section>
+<p class="disclaimer"><strong>Disclaimer:</strong> excel.gumber.ai is a hobby project and is completely free to use. It is provided “as is”, without warranty of any kind. Always double-check results before relying on them, and keep a copy of your original files.</p>
+<section class="more"><h3>Related tools</h3><div class="bento"><a class="tile" href="/excel-to-csv"><h3>Excel to CSV</h3><p>Convert XLSX/XLS sheets to CSV with your choice of delimiter. Export one sheet or all.</p></a><a class="tile" href="/csv-to-excel"><h3>CSV to Excel</h3><p>Turn CSV, TSV or delimited text into a proper .xlsx workbook. Auto-detects delimiters and numbers.</p></a><a class="tile" href="/excel-to-json"><h3>Excel to JSON</h3><p>Convert spreadsheets to JSON arrays or objects. Supports nested keys like &quot;address.city&quot;.</p></a><a class="tile" href="/json-to-excel"><h3>JSON to Excel</h3><p>Paste or upload JSON and get a clean spreadsheet. Nested objects are flattened into columns.</p></a></div></section>
+</article>
+    <footer class="site-foot">
+      <p><strong>Excel Tools by gumber.ai</strong> — Free, private Excel &amp; CSV tools that run in your browser.</p>
+      <p>excel.gumber.ai is a hobby project and is completely free to use. It is provided “as is”, without warranty of any kind. Always double-check results before relying on them, and keep a copy of your original files. <a href="/about">Limitations &amp; disclaimer</a> · <a href="/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p>
+    </footer>
+  </main>
+</div>
+<div id="palette" class="palette" hidden>
+  <div class="pal-box" role="dialog" aria-label="Find a tool">
+    <input id="palInput" type="text" placeholder="Type a tool name… e.g. vlookup, merge, pdf" autocomplete="off" aria-label="Search tools">
+    <ul id="palList"></ul>
+    <div class="pal-hint"><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
+  </div>
+</div>
+<div id="busy" class="busy" hidden><div class="bar"><i></i></div><div id="busyMsg">Working…</div></div>
+<div id="toast" class="toast" hidden role="status"></div>
+</body>
+</html>

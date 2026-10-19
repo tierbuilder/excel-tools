@@ -249,3 +249,31 @@ pre.out { background: var(--sunk); border: 1px solid var(--line); border-radius:
 .busy .bar i { display: block; height: 100%; width: 40%; border-radius: 6px; background: linear-gradient(90deg, var(--brand-2), var(--lime)); animation: slide 1s ease-in-out infinite; }
 @keyframes slide { from { transform: translateX(-100%); } to { transform: translateX(260%); } }
 .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 11px 18px; border-radius: 12px; z-index: 90; font-size: 14px; max-width: calc(100% - 32px); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+
+/* ---------- SEO content, footer, disclaimer ---------- */
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 8px; }
+.skip:focus { left: 8px; }
+.seo { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line); max-width: 780px; color: var(--ink-2); }
+.seo.prose { margin-top: 8px; border-top: 0; padding-top: 0; }
+.seo section { margin-bottom: 30px; }
+.seo h2 { font-size: 20px; letter-spacing: -.02em; color: var(--ink); margin: 0 0 10px; }
+.seo p { margin: 0 0 10px; }
+.seo ul, .seo ol { margin: 0; padding-left: 22px; }
+.seo li { margin: 5px 0; }
+.seo li::marker { color: var(--brand); font-weight: 600; }
+.seo details { border: 1px solid var(--line); background: var(--panel); border-radius: 12px; padding: 0 16px; margin-bottom: 8px; }
+.seo summary { cursor: pointer; padding: 13px 0; font-weight: 600; color: var(--ink); list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.seo summary::-webkit-details-marker { display: none; }
+.seo summary::after { content: "+"; font-family: var(--mono); color: var(--brand); font-size: 18px; line-height: 1; }
+.seo details[open] summary::after { content: "–"; }
+.seo details p { padding-bottom: 12px; margin: 0; }
+.seo .more { max-width: none; }
+.seo .more .tile { min-height: 0; }
+.disclaimer { background: var(--sunk); border: 1px solid var(--line); border-left: 3px solid var(--brand); border-radius: 12px; padding: 12px 16px; font-size: 14px; }
+.site-foot { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-3); }
+.site-foot p { margin: 0 0 6px; }
+.site-foot a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; }
+.hobby { font-size: 12px; color: var(--ink-3); padding: 0 8px; }
+.hobby u { text-underline-offset: 2px; }
+.hobby:hover { color: var(--brand); }
+.seo .more h3 { margin: 0 0 12px; }

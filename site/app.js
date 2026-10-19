@@ -210,7 +210,13 @@ function colChooser(headers, { selected = [], ordered = false, onChange } = {}) 
     h('button', { type: 'button', class: 'btn ghost sm', onclick: () => { sel = []; draw(); onChange && onChange(sel); } }, 'Clear')));
   return { el: wrap, get value() { return sel.slice(); } };
 }
-function dropZone({ multiple = false, accept = SHEET_ACCEPT, label, hint, onFiles }) {
+const BIG_FILE = 50 * 1024 * 1024;
+function dropZone({ multiple = false, accept = SHEET_ACCEPT, label, hint, onFiles: handle }) {
+  const onFiles = fs => {
+    const big = fs.find(f => f.size > BIG_FILE);
+    if (big) toast(`${big.name} is ${fmtBytes(big.size)}. Large files are processed in your browser's memory and may be slow or crash the tab — see Limitations below.`);
+    handle(fs);
+  };
   const input = h('input', { type: 'file', accept, multiple, hidden: true, onchange: () => { if (input.files.length) onFiles([...input.files]); input.value = ''; } });
   const zone = h('div', { class: 'drop', tabindex: 0, role: 'button',
     onclick: () => input.click(), onkeydown: e => (e.key === 'Enter' || e.key === ' ') && input.click(),
@@ -904,6 +910,7 @@ const TOOL_ICON = {
 const tIcon = t => icon(TOOL_ICON[t.id]);
 
 /* file handed over from the home drop stage to the next tool that can use it */
+/* A file dropped on the home page is handed to the next tool page via IndexedDB (falls back to nothing). */
 const PENDING = {
   file: null,
   take(accept) {
@@ -911,6 +918,19 @@ const PENDING = {
     const ok = accept.split(',').some(a => { a = a.trim().toLowerCase(); return a.endsWith('/*') ? f.type.startsWith(a.slice(0, -1)) : f.name.toLowerCase().endsWith(a); });
     if (!ok) return null;
     this.file = null; return f;
+  },
+  db() {
+    return new Promise((res, rej) => { const r = indexedDB.open('excel-gumber', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+  },
+  async stash(file) {
+    try { const db = await this.db(); await new Promise((res, rej) => { const tx = db.transaction('kv', 'readwrite'); tx.objectStore('kv').put({ file, at: Date.now() }, 'pending'); tx.oncomplete = res; tx.onerror = () => rej(tx.error); }); } catch (e) { /* storage unavailable */ }
+  },
+  async restore() {
+    try {
+      const db = await this.db();
+      const v = await new Promise((res, rej) => { const tx = db.transaction('kv', 'readwrite'); const st = tx.objectStore('kv'); const g = st.get('pending'); g.onsuccess = () => { st.delete('pending'); res(g.result); }; tx.onerror = () => rej(tx.error); });
+      if (v && v.file && Date.now() - v.at < 10 * 60 * 1000) this.file = v.file;
+    } catch (e) { /* storage unavailable */ }
   },
 };
 function suggestFor(file) {
@@ -927,7 +947,7 @@ function suggestFor(file) {
 const FEATURED = { 'merge-excel': 'hero wide', vlookup: 'wide', 'compare-excel': '', 'remove-duplicates': '' };
 const ORDER = ['merge-excel', 'vlookup', 'compare-excel', 'remove-duplicates', 'pdf-to-excel', 'excel-splitter', 'fuzzy-lookup', 'excel-viewer'];
 function tile(t, extra = '') {
-  return h('a', { class: 'tile ' + extra, href: '#/' + t.id }, h('span', { class: 'tic' }, tIcon(t)), h('span', { class: 'go' }, icon('arrow')),
+  return h('a', { class: 'tile ' + extra, href: '/' + t.id }, h('span', { class: 'tic' }, tIcon(t)), h('span', { class: 'go' }, icon('arrow')),
     h('h3', null, t.name), h('p', null, t.desc), h('span', { class: 'tag' }, CATS.find(c => c.id === t.cat).name.toLowerCase()));
 }
 let homeFilter = 'all';
@@ -936,10 +956,9 @@ function home(app) {
   const zone = dropZone({ accept: '', label: 'Drop any file to get started', hint: 'Excel, CSV, JSON, PDF or an image — we’ll suggest what you can do',
     onFiles: fs => {
       const f = fs[0]; const ids = suggestFor(f);
-      PENDING.file = f;
       sugg.hidden = false;
       sugg.replaceChildren(h('h4', null, 'What should we do with ', h('span', null, f.name), '?'),
-        ids.length ? h('div', { class: 'pills' }, ids.map(id => { const t = TOOLS.find(x => x.id === id); return h('a', { class: 'pill', href: '#/' + id }, tIcon(t), t.name); }))
+        ids.length ? h('div', { class: 'pills' }, ids.map(id => { const t = TOOLS.find(x => x.id === id); return h('a', { class: 'pill', href: '/' + id, onclick: async e => { e.preventDefault(); await PENDING.stash(f); location.href = '/' + id; } }, tIcon(t), t.name); }))
                    : h('p', { class: 'muted' }, 'That file type isn’t supported yet. Try a spreadsheet, CSV, JSON, PDF or image.'));
     } });
   const grid = h('div', { class: 'bento' });
@@ -954,33 +973,28 @@ function home(app) {
     h('section', { class: 'home-top' },
       h('div', { class: 'home-copy' },
         h('span', { class: 'eyebrow' }, h('i'), `${TOOLS.length} tools · runs offline`),
-        h('h1', null, 'Spreadsheet chores, ', h('em', null, 'done in seconds.')),
+        h('h1', null, 'Free online Excel tools — ', h('em', null, 'private, in your browser.')),
         h('p', null, 'Merge, split, compare, look up and convert Excel files without formulas, installs or uploads. Your data stays on your device.'),
         h('div', { class: 'facts' }, [['lock', 'Never uploaded'], ['bolt', 'Instant results'], ['user', 'No sign-up']].map(([i, t]) => h('span', null, icon(i), t)))),
       h('div', { class: 'stage' }, h('div', { class: 'stage-in' }, zone, sugg))),
     h('div', { class: 'filters' }, h('h2', null, 'Toolbox'), seg),
     grid);
-  document.title = 'Excel tools · gumber.ai';
 }
-function buildNav(activeId) {
-  $('#sideNav').replaceChildren(...CATS.map(c => h('div', { class: 'nav-group' }, h('h6', null, c.name),
-    TOOLS.filter(t => t.cat === c.id).map(t => h('a', { class: 'nav-item' + (t.id === activeId ? ' on' : ''), href: '#/' + t.id }, tIcon(t), t.name)))));
+function decorateNav() {
+  document.querySelectorAll('.nav-item[data-tool]').forEach(a => { const t = TOOLS.find(x => x.id === a.dataset.tool); if (t && !a.querySelector('svg')) a.prepend(tIcon(t)); });
 }
 function route() {
-  const app = $('#app'); const id = location.hash.replace(/^#\/?/, '');
+  const app = $('#app'); const id = document.body.dataset.page;
   const t = TOOLS.find(x => x.id === id);
-  closeMenu(); buildNav(t && t.id); window.scrollTo(0, 0);
-  if (!t) return home(app);
+  if (id === 'home') return home(app);
+  if (!t) return; // static pages (about, 404) need no JS rendering
   const cat = CATS.find(c => c.id === t.cat);
-  const related = TOOLS.filter(x => x.cat === t.cat && x.id !== t.id).slice(0, 4);
   const body = h('div');
   app.replaceChildren(
     h('header', { class: 'tool-head' }, h('span', { class: 'tic' }, tIcon(t)),
-      h('div', null, h('div', { class: 'crumb' }, h('a', { href: '#/' }, 'tools'), ' / ', cat.name.toLowerCase()),
+      h('div', null, h('div', { class: 'crumb' }, h('a', { href: '/' }, 'tools'), ' / ', cat.name.toLowerCase()),
         h('h1', null, t.name), h('p', null, t.desc), h('span', { class: 'lock' }, icon('lock'), 'Processed locally — nothing leaves your browser'))),
-    body,
-    related.length ? h('section', { class: 'more' }, h('h3', null, 'Keep going'), h('div', { class: 'bento' }, related.map(r => tile(r)))) : null);
-  document.title = `${t.name} · excel.gumber.ai`;
+    body);
   t.render(body);
 }
 
@@ -996,7 +1010,7 @@ function drawPalette() {
     h('span', { class: 'tic' }, tIcon(t)), h('div', null, h('b', null, t.name), h('span', null, t.desc)))) : [h('li', { class: 'empty' }, 'No tools match.')]));
   $('#palList .sel')?.scrollIntoView({ block: 'nearest' });
 }
-function go(t) { closePalette(); location.hash = '#/' + t.id; }
+function go(t) { closePalette(); location.href = '/' + t.id; }
 function initPalette() {
   $('#findBtn').addEventListener('click', openPalette); $('#mPalette').addEventListener('click', openPalette);
   $('#palInput').addEventListener('input', () => { palSel = 0; drawPalette(); });
@@ -1028,7 +1042,13 @@ function initTheme() {
   });
 }
 
-window.addEventListener('hashchange', route);
-initTheme(); initPalette(); initMenu(); $('#yr').textContent = new Date().getFullYear();
-if (!window.XLSX) { $('#app').append(h('div', { class: 'warn' }, 'Could not load the spreadsheet engine. Check your connection and reload.')); }
-route();
+async function boot() {
+  // old #/tool links → real URLs
+  const legacy = location.hash.match(/^#\/([\w-]+)/);
+  if (legacy && TOOLS.some(t => t.id === legacy[1])) return location.replace('/' + legacy[1]);
+  initTheme(); initPalette(); initMenu(); decorateNav();
+  if (!window.XLSX) { $('#app').prepend(h('div', { class: 'warn' }, 'Could not load the spreadsheet engine. Check your connection and reload.')); return; }
+  await PENDING.restore();
+  route();
+}
+boot();

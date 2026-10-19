@@ -1,0 +1,26 @@
+{
+  "name": "Excel Tools by gumber.ai",
+  "short_name": "Excel Tools",
+  "description": "Free online Excel and CSV tools — merge, split, compare, convert, VLOOKUP, remove duplicates and more. Everything runs in your browser, so files are never uploaded. No sign-up.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0b12",
+  "theme_color": "#5b4bff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,449 @@
+# Excel Tools by gumber.ai — full documentation
+
+Free online Excel and CSV tools — merge, split, compare, convert, VLOOKUP, remove duplicates and more. Everything runs in your browser, so files are never uploaded. No sign-up.
+
+Site: https://excel.gumber.ai/
+Price: free (hobby project). Privacy: all processing happens locally in the browser; nothing is uploaded.
+
+## Limitations
+- Everything runs in your browser’s memory, so the practical file size depends on your device. As a rough guide: up to ~50 MB or ~500,000 rows works well on a modern laptop; phones and tablets handle much less.
+- Very large files can make the tab slow or crash. If that happens, split the file first or use a desktop computer.
+- Outputs keep values and formulas’ results but not formatting, charts, images, pivot tables or macros.
+- Password-protected workbooks can’t be opened.
+- PDF to Excel works on digital PDFs only; scanned pages need the Image to Excel (OCR) tool. OCR accuracy depends on image quality.
+- Fuzzy lookups compare every unmatched value against the lookup table, so very large tables (tens of thousands of rows on both sides) can take a while.
+
+## Disclaimer
+excel.gumber.ai is a hobby project and is completely free to use. It is provided “as is”, without warranty of any kind. Always double-check results before relying on them, and keep a copy of your original files.
+
+---
+
+## Excel to CSV
+URL: https://excel.gumber.ai/excel-to-csv
+Category: Convert
+
+Turn any Excel worksheet into a clean CSV file. Pick the delimiter your system expects, add a UTF-8 BOM so accented characters open correctly in Excel, and export a single sheet or every sheet at once as a ZIP.
+
+How to use:
+1. Drop your Excel file (XLSX, XLS, XLSM, ODS) onto the page.
+2. Choose the sheet and the delimiter — comma, semicolon, tab or pipe.
+3. Click “Convert to CSV” and download the file (or a ZIP of all sheets).
+
+FAQ:
+- Q: Can I convert all sheets at once?
+  A: Yes. Choose “All sheets (ZIP)” and every worksheet is saved as its own CSV inside one ZIP file.
+- Q: Why do accents look wrong when I open the CSV in Excel?
+  A: Excel needs a UTF-8 byte-order mark to detect the encoding. Keep the “Add UTF-8 BOM” option ticked.
+- Q: Are formulas kept?
+  A: CSV can only store values, so each formula is saved as its calculated result.
+
+---
+
+## CSV to Excel
+URL: https://excel.gumber.ai/csv-to-excel
+Category: Convert
+
+Convert comma, semicolon, tab or pipe-separated text into a real Excel workbook. Numbers become numbers, codes with leading zeros (like 007 or ZIP codes) stay as text, and several CSV files can be combined as separate tabs.
+
+How to use:
+1. Add one or more CSV, TSV or TXT files.
+2. Leave the delimiter on “Auto-detect” or pick one manually.
+3. Click “Convert to Excel” and download the .xlsx workbook.
+
+FAQ:
+- Q: Will leading zeros be removed?
+  A: No. Values such as 00123 are kept as text so the zeros are preserved.
+- Q: Can I combine several CSVs into one workbook?
+  A: Yes. Add multiple files and each one becomes its own sheet.
+- Q: Which delimiters are supported?
+  A: Comma, semicolon, tab and pipe — detected automatically.
+
+---
+
+## Excel to JSON
+URL: https://excel.gumber.ai/excel-to-json
+Category: Convert
+
+Convert spreadsheet rows into JSON for APIs, apps and config files. The first row becomes the keys; headers like “address.city” become nested objects. Export one sheet or every sheet keyed by name.
+
+How to use:
+1. Drop an Excel or CSV file.
+2. Choose array of objects or array of arrays, and whether to nest dotted headers.
+3. Click “Convert to JSON”, then copy or download the result.
+
+FAQ:
+- Q: How are nested objects created?
+  A: Use dots in column headers, e.g. “user.name” and “user.email” become { "user": { "name", "email" } }.
+- Q: How are dates exported?
+  A: Dates are written as ISO strings such as 2026-01-31.
+- Q: Can I skip empty cells?
+  A: Yes, tick “Omit empty cells”.
+
+---
+
+## JSON to Excel
+URL: https://excel.gumber.ai/json-to-excel
+Category: Convert
+
+Paste an API response or upload a .json file and get a tidy spreadsheet. Nested objects become dotted columns (address.city), simple arrays are joined, and an object of arrays becomes one sheet per key.
+
+How to use:
+1. Paste JSON into the box or drop a .json file.
+2. Click “Convert to Excel”.
+3. Review the preview and download the .xlsx file.
+
+FAQ:
+- Q: What JSON shapes are supported?
+  A: An array of objects, an array of arrays, a single object, or an object whose values are arrays (each becomes a sheet).
+- Q: What happens to nested arrays?
+  A: Arrays of simple values are joined with commas; arrays of objects are kept as JSON text in the cell.
+- Q: Is there a size limit?
+  A: Only your browser’s memory — see the limitations below.
+
+---
+
+## PDF to Excel
+URL: https://excel.gumber.ai/pdf-to-excel
+Category: Convert
+
+Pull tables out of bank statements, invoices and reports. Text is grouped into rows by position and aligned into columns, so most tabular PDFs come out ready to sort and filter.
+
+How to use:
+1. Choose a digital (text-based) PDF.
+2. Pick one sheet per page or all pages in one sheet; adjust the column gap if columns merge or split.
+3. Click “Extract to Excel” and download.
+
+FAQ:
+- Q: Does it work on scanned PDFs?
+  A: Not directly. Scanned pages are images — take a screenshot and use the Image to Excel (OCR) tool instead.
+- Q: Columns are merged or split incorrectly. What can I do?
+  A: Lower the “Column gap” to split more, raise it to merge more, or turn off column alignment.
+- Q: Is my PDF uploaded?
+  A: No, it is parsed in your browser with pdf.js.
+
+---
+
+## Image to Excel (OCR)
+URL: https://excel.gumber.ai/image-to-excel
+Category: Convert
+
+Turn a screenshot, photo or scanned table into editable rows and columns. Text recognition runs on your device with Tesseract OCR and supports many languages.
+
+How to use:
+1. Drop a PNG, JPG or WEBP image.
+2. Choose the language and how columns are separated.
+3. Click “Extract table”, check the result, and download XLSX or CSV.
+
+FAQ:
+- Q: How accurate is the OCR?
+  A: Clear, high-resolution screenshots work best. Photos with blur, skew or shadows reduce accuracy — always check numbers.
+- Q: Why is the first run slow?
+  A: The OCR engine and language data (a few MB) are downloaded once, then cached by your browser.
+- Q: Which languages are supported?
+  A: English, Hindi, Spanish, French, German, Portuguese, Italian, Chinese (Simplified), Japanese and Arabic.
+
+---
+
+## Merge Excel Files
+URL: https://excel.gumber.ai/merge-excel
+Category: Merge & Split
+
+Combine monthly reports, exports from different teams, or many CSVs into a single file. Rows are stacked and columns are lined up by header name — even when files have columns in a different order.
+
+How to use:
+1. Add two or more Excel or CSV files.
+2. Choose “Stack all rows into one sheet” or “Keep each sheet as a separate tab”.
+3. Click “Merge files” and download the result.
+
+FAQ:
+- Q: What if my files have different columns?
+  A: All columns are kept. Rows from files missing a column get an empty cell there.
+- Q: Can I tell which file each row came from?
+  A: Yes, keep “Add a Source column” ticked.
+- Q: Can I merge all sheets inside each workbook?
+  A: Yes, choose “All sheets of each file”.
+
+---
+
+## CSV Merger
+URL: https://excel.gumber.ai/csv-merger
+Category: Merge & Split
+
+Join any number of CSV exports into one file. Headers are matched by name (case-insensitive), so files with columns in a different order still line up.
+
+How to use:
+1. Add your CSV files.
+2. Decide whether to add a “Source” column.
+3. Click “Merge files” and download the combined CSV.
+
+FAQ:
+- Q: Do all CSVs need the same delimiter?
+  A: No, each file’s delimiter is detected separately.
+- Q: Is the header row repeated?
+  A: No, the output has a single header row.
+- Q: How many files can I merge?
+  A: As many as your browser’s memory allows.
+
+---
+
+## Excel Splitter
+URL: https://excel.gumber.ai/excel-splitter
+Category: Merge & Split
+
+Break a large spreadsheet into manageable pieces. Split every 1,000 rows for imports, into equal parts for teammates, by region or category, or save each sheet as its own file.
+
+How to use:
+1. Drop the spreadsheet you want to split.
+2. Choose a split mode and set N or the column.
+3. Click “Split file”, then download a ZIP of files or one workbook with a tab per part.
+
+FAQ:
+- Q: Is the header row kept in every part?
+  A: Yes, by default the header is repeated in each file.
+- Q: Can I split by a column like “Country”?
+  A: Yes — choose “By unique values in a column” and every value gets its own file.
+- Q: What output formats are available?
+  A: A ZIP of XLSX files, a ZIP of CSV files, or a single workbook with one tab per part.
+
+---
+
+## Compare Excel Files
+URL: https://excel.gumber.ai/compare-excel
+Category: Clean, Compare & Lookup
+
+See exactly what changed between two versions of a spreadsheet. Match rows by position or by a key column such as ID, then review highlighted changes and export a report listing every changed cell.
+
+How to use:
+1. Upload the original (A) and the new version (B).
+2. Choose how to match rows — by position or by a key column.
+3. Click “Compare” and download the diff report.
+
+FAQ:
+- Q: Why use a key column?
+  A: If rows were inserted, deleted or re-sorted, matching by an ID column compares the right rows with each other.
+- Q: Can I ignore case and spaces?
+  A: Yes, both options are available.
+- Q: What does the report contain?
+  A: A summary sheet with every row’s status and a “Cell changes” sheet listing old and new values.
+
+---
+
+## Remove Duplicates
+URL: https://excel.gumber.ai/remove-duplicates
+Category: Clean, Compare & Lookup
+
+Clean up mailing lists, CRM exports and transaction logs. Decide which columns define a duplicate, ignore case and extra spaces, and keep the first or last occurrence.
+
+How to use:
+1. Drop your spreadsheet.
+2. Select the columns that define a duplicate and set the matching options.
+3. Click “Remove duplicates” and download the cleaned file (and optionally the removed rows).
+
+FAQ:
+- Q: Can I dedupe by email only?
+  A: Yes — select just the email column.
+- Q: Is “John ” the same as “john”?
+  A: With “Ignore case” and “Ignore extra spaces” on, yes.
+- Q: Can I see what was removed?
+  A: Yes, download the removed duplicates as a separate file.
+
+---
+
+## Excel VLOOKUP
+URL: https://excel.gumber.ai/vlookup
+Category: Clean, Compare & Lookup
+
+Bring columns from one table into another by matching a shared value such as ID, SKU or email — without writing a formula. Return several columns at once and choose what to show when no match is found.
+
+How to use:
+1. Upload the main table and the lookup table (or the same file twice with different sheets).
+2. Pick the matching columns and the columns to bring back.
+3. Click “Run lookup” and download the result.
+
+FAQ:
+- Q: Can I return more than one column?
+  A: Yes, select as many return columns as you like.
+- Q: What happens when there are several matches?
+  A: Choose first match, last match, all matches joined, or the count.
+- Q: Does the lookup column have to be the first column?
+  A: No — any column can be matched, unlike Excel’s VLOOKUP.
+
+---
+
+## XLOOKUP / INDEX-MATCH
+URL: https://excel.gumber.ai/xlookup
+Category: Clean, Compare & Lookup
+
+The flexibility of XLOOKUP and INDEX-MATCH without the formulas: match on any column and return columns to the left or right, with your own “not found” value.
+
+How to use:
+1. Upload the main table and the lookup table.
+2. Choose the match column on each side and the columns to return.
+3. Click “Run lookup” and download.
+
+FAQ:
+- Q: How is this different from the VLOOKUP tool?
+  A: They share the same engine; this page is set up for XLOOKUP / INDEX-MATCH style use.
+- Q: Can I look up to the left?
+  A: Yes, return columns can be anywhere in the lookup table.
+- Q: Is matching case-sensitive?
+  A: Not by default; you can switch it on.
+
+---
+
+## HLOOKUP Tool
+URL: https://excel.gumber.ai/hlookup
+Category: Clean, Compare & Lookup
+
+For tables laid out sideways — with field names down the first column and records across. Match values across rows and bring back the rows you need.
+
+How to use:
+1. Upload the main and lookup tables (horizontal layout).
+2. Pick the match row and the rows to return.
+3. Run the lookup and download the result in the same horizontal layout.
+
+FAQ:
+- Q: What is a horizontal table?
+  A: One where each record is a column and each field is a row.
+- Q: Can I switch to vertical?
+  A: Yes, change “Table orientation” at any time.
+- Q: Is the result transposed?
+  A: No, it is returned in the same horizontal layout as your input.
+
+---
+
+## Multi-Criteria Lookup
+URL: https://excel.gumber.ai/multi-criteria-lookup
+Category: Clean, Compare & Lookup
+
+When one column isn’t unique, match on several together — like Customer + Month or SKU + Warehouse — and pull back the right values.
+
+How to use:
+1. Upload both tables.
+2. Add a criterion for each column pair that must match.
+3. Choose the return columns, run the lookup and download.
+
+FAQ:
+- Q: How many criteria can I add?
+  A: As many as you need.
+- Q: Do criteria need the same column names?
+  A: No, you pair any column in the main table with any column in the lookup table.
+- Q: Can I combine this with fuzzy matching?
+  A: Yes, set the match type to fuzzy.
+
+---
+
+## Excel Fuzzy Lookup
+URL: https://excel.gumber.ai/fuzzy-lookup
+Category: Clean, Compare & Lookup
+
+Match company names, product titles or people even when they are spelled slightly differently. Set a minimum similarity and get a score and the matched value for every row so you can review the results.
+
+How to use:
+1. Upload the list to match and the reference list.
+2. Pick the columns and set the minimum similarity (80% is a good start).
+3. Run the lookup, review match scores, and download.
+
+FAQ:
+- Q: How is similarity measured?
+  A: With edit (Levenshtein) distance: 100% means identical, 80% means about one character in five differs.
+- Q: Exact matches are found first?
+  A: Yes, fuzzy matching only runs for values without an exact match.
+- Q: It is slow on big files — why?
+  A: Each unmatched value is compared with every lookup value. Clean obvious differences first or split the file.
+
+---
+
+## Combine Columns
+URL: https://excel.gumber.ai/combine-columns
+Category: Clean, Compare & Lookup
+
+Join columns like First Name and Last Name, or Street, City and ZIP, into a single column. Choose the order, the separator and whether to skip blanks.
+
+How to use:
+1. Drop your spreadsheet.
+2. Click the columns in the order you want them joined and choose a separator.
+3. Click “Combine columns” and download.
+
+FAQ:
+- Q: Can I control the order?
+  A: Yes, the order you click columns is the order they are joined.
+- Q: Can I use a line break as separator?
+  A: Yes, choose “New line”.
+- Q: Are the original columns kept?
+  A: By default yes; tick “Remove original columns” to drop them.
+
+---
+
+## Mail Merge
+URL: https://excel.gumber.ai/mail-merge
+Category: Clean, Compare & Lookup
+
+Write a template once with placeholders like {{Name}} and generate one personalised document per row — letters, emails, certificates text or WhatsApp messages.
+
+How to use:
+1. Upload your recipient list.
+2. Write the template and insert fields by clicking them.
+3. Preview, then download a ZIP of files, one combined file, or a spreadsheet with a Message column.
+
+FAQ:
+- Q: Can it send emails?
+  A: No, it generates the text. Use the spreadsheet output with your email tool’s own merge feature.
+- Q: Can I name each file after a column?
+  A: Yes, set the file name pattern, e.g. {{Name}}.
+- Q: Which output formats are available?
+  A: TXT, HTML or Markdown files, or an XLSX with a Message column.
+
+---
+
+## Online Excel Viewer
+URL: https://excel.gumber.ai/excel-viewer
+Category: View & Optimize
+
+Open a spreadsheet on any device without installing Excel. Switch between sheets, search across rows and export to XLSX or CSV.
+
+How to use:
+1. Drop a spreadsheet file.
+2. Pick a sheet and use the filter box to search.
+3. Optionally download as XLSX or CSV.
+
+FAQ:
+- Q: Can I edit cells?
+  A: The viewer is read-only; use the other tools to transform data.
+- Q: Does it work on iPhone and Android?
+  A: Yes, in any modern mobile browser (for smaller files).
+- Q: Are formulas shown?
+  A: The calculated values are shown.
+
+---
+
+## Compress Excel
+URL: https://excel.gumber.ai/compress-excel
+Category: View & Optimize
+
+Shrink bloated workbooks by rewriting the data with maximum compression. Best for data-heavy files that need to be emailed or uploaded.
+
+How to use:
+1. Add one or more workbooks.
+2. Click “Compress”.
+3. Compare sizes and download the smaller files.
+
+FAQ:
+- Q: What is removed?
+  A: Formatting, charts, images and macros are dropped — values and formulas are kept. Keep your original.
+- Q: Why didn’t my file get smaller?
+  A: Files that are mostly images or already optimised may not shrink further.
+- Q: Can I compress XLS files?
+  A: Yes, they are saved as modern .xlsx.
+
+## General FAQ
+- Q: Are these Excel tools really free?
+  A: Yes. excel.gumber.ai is a free hobby project — no sign-up, no watermark, no paid tier and no file count limits.
+- Q: Are my files uploaded to a server?
+  A: No. Every tool runs entirely in your web browser using JavaScript. Your spreadsheets never leave your device, which also makes the tools work on confidential data.
+- Q: Which file formats are supported?
+  A: XLSX, XLSM, XLSB, XLS, ODS, CSV, TSV and TXT spreadsheets, plus JSON, PDF (digital) and images (PNG, JPG, WEBP) for the conversion tools.
+- Q: How big can my file be?
+  A: It depends on your device’s memory. Files up to about 50 MB or 500,000 rows usually work well on a laptop; phones handle less. Split very large files first.
+- Q: Do I need Microsoft Excel installed?
+  A: No. The tools work in any modern browser — Chrome, Edge, Safari or Firefox — on Windows, Mac, Linux, Android and iOS.
