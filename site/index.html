@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Excel tools · gumber.ai</title>
+<meta name="description" content="Private spreadsheet tools by gumber.ai — merge, split, compare, convert, look up and clean Excel & CSV files right in your browser. Nothing is uploaded.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%235b4bff'/><path d='M10 11h12M10 16h12M10 21h7' stroke='white' stroke-width='2.6' stroke-linecap='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script defer src="app.js"></script>
+</head>
+<body>
+<div class="shell">
+  <div class="mbar">
+    <button class="icon-btn" id="menuBtn" aria-label="Open menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a href="#/" class="logo"><span class="mark"></span>Excel</a>
+    <button class="icon-btn" id="mPalette" aria-label="Search tools"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg></button>
+  </div>
+  <aside class="side" id="side">
+    <a href="#/" class="logo"><span class="mark"></span>Excel <span class="by">by gumber.ai</span></a>
+    <button class="find" id="findBtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg>Find a tool<kbd>⌘K</kbd></button>
+    <nav id="sideNav"></nav>
+    <div class="side-foot">
+      <div class="local"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><div><b>Local-only</b><span>Files never leave this device</span></div></div>
+      <div class="foot-row"><span>© <span id="yr"></span> gumber.ai</span><button class="icon-btn sm" id="themeBtn" aria-label="Toggle theme"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button></div>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main id="app" class="main"></main>
+</div>
+<div id="palette" class="palette" hidden>
+  <div class="pal-box" role="dialog" aria-label="Find a tool">
+    <input id="palInput" type="text" placeholder="Type a tool name… e.g. vlookup, merge, pdf" autocomplete="off">
+    <ul id="palList"></ul>
+    <div class="pal-hint"><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
+  </div>
+</div>
+<div id="busy" class="busy" hidden><div class="bar"><i></i></div><div id="busyMsg">Working…</div></div>
+<div id="toast" class="toast" hidden></div>
+</body>
+</html>
