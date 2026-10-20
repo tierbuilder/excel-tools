@@ -788,6 +788,134 @@ tool({ id: 'hlookup', cat: 'data', ic: 'HL', name: 'HLOOKUP Tool', desc: 'Lookup
 tool({ id: 'multi-criteria-lookup', cat: 'data', ic: 'MC', name: 'Multi-Criteria Lookup', desc: 'Match rows on two or more columns at once, e.g. Name + Date.', render: r => lookupTool(r, { criteria: 2 }) });
 tool({ id: 'fuzzy-lookup', cat: 'data', ic: '≈', name: 'Excel Fuzzy Lookup', desc: 'Match names that are almost the same — typos, abbreviations and spacing differences.', render: r => lookupTool(r, { fuzzy: true }) });
 
+/* Remove columns (batch) — ported from the Excel Column Cleaner extension */
+tool({ id: 'remove-columns', cat: 'data', ic: 'COL', name: 'Remove Columns', desc: 'Delete the same columns from many Excel or CSV files at once — click to pick, list is remembered.',
+  render(root) {
+    const KEY = 'removeColumns.v1';
+    const nrm = v => str(v).trim().toLowerCase();
+    const splitNames = text => String(text).split(/[\r\n\t,]+/).map(x => x.trim()).filter(Boolean);
+    let picked = [], mode = 'remove';
+    const entries = []; // { file, headers, rows, error }
+    try { const saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved) { picked = saved.picked || []; mode = saved.mode || 'remove'; } } catch (e) {}
+    const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ picked, mode })); } catch (e) {} };
+    const isPicked = hd => picked.some(x => nrm(x) === nrm(hd));
+    const drops = hd => mode === 'remove' ? isPicked(hd) : !isPicked(hd);
+    const setPicked = list => { const seen = new Set(); picked = list.filter(hd => !seen.has(nrm(hd)) && seen.add(nrm(hd))); save(); draw(); };
+    const toggle = hd => setPicked(isPicked(hd) ? picked.filter(x => nrm(x) !== nrm(hd)) : [...picked, hd]);
+
+    async function readHeaders(file) {
+      const e = { file, headers: [], rows: 0, error: null };
+      const add = hd => { hd = str(hd).trim(); if (hd && !e.headers.some(x => nrm(x) === nrm(hd))) e.headers.push(hd); };
+      try {
+        if (isTextSheet(file.name)) {
+          const { rows } = parseCSV(await readAs(file, 'text'));
+          (rows[0] || []).forEach(add); e.rows = Math.max(0, rows.length - 1);
+        } else {
+          // Only the header row is parsed; !fullref still holds each sheet's real size.
+          const wb = XLSX.read(await readAs(file, 'buffer'), { type: 'array', sheetRows: 1 });
+          for (const n of wb.SheetNames) {
+            const ws = wb.Sheets[n]; if (!ws['!ref']) continue;
+            const r = XLSX.utils.decode_range(ws['!ref']), full = XLSX.utils.decode_range(ws['!fullref'] || ws['!ref']);
+            e.rows += full.e.r - full.s.r;
+            for (let c = r.s.c; c <= r.e.c; c++) { const cell = ws[XLSX.utils.encode_cell({ r: r.s.r, c })]; if (cell) add(cell.v); }
+          }
+        }
+      } catch (err) { e.error = err.message || String(err); }
+      return e;
+    }
+    // Remove columns from one sheet in place, keeping cell objects (values, number formats).
+    function cleanSheet(ws) {
+      if (!ws['!ref']) return 0;
+      const range = XLSX.utils.decode_range(ws['!ref']); const keep = [];
+      for (let c = range.s.c; c <= range.e.c; c++) { const cell = ws[XLSX.utils.encode_cell({ r: range.s.r, c })]; const hd = str(cell ? cell.v : '').trim(); if (!hd || !drops(hd)) keep.push(c); }
+      const removed = range.e.c - range.s.c + 1 - keep.length; if (!removed) return 0;
+      const out = {};
+      for (let r = range.s.r; r <= range.e.r; r++) keep.forEach((oldC, i) => { const cell = ws[XLSX.utils.encode_cell({ r, c: oldC })]; if (cell) out[XLSX.utils.encode_cell({ r, c: range.s.c + i })] = cell; });
+      for (const k of Object.keys(ws)) if (k[0] === '!') out[k] = ws[k];
+      out['!ref'] = XLSX.utils.encode_range({ s: range.s, e: { r: range.e.r, c: range.s.c + Math.max(keep.length - 1, 0) } });
+      if (ws['!cols']) out['!cols'] = keep.map(c => ws['!cols'][c]);
+      delete out['!merges']; delete out['!autofilter'];
+      for (const k of Object.keys(ws)) delete ws[k];
+      Object.assign(ws, out); return removed;
+    }
+    async function processFile(e) {
+      const base = baseName(e.file.name);
+      if (isTextSheet(e.file.name)) {
+        const { rows, delim } = parseCSV(await readAs(e.file, 'text'));
+        const keep = (rows[0] || []).map((hd, i) => [hd.trim(), i]).filter(([hd]) => !hd || !drops(hd)).map(([, i]) => i);
+        return { name: `${base}_cleaned.csv`, data: '﻿' + toCSV(rows.map(r => keep.map(i => r[i] ?? '')), delim) };
+      }
+      const wb = XLSX.read(await readAs(e.file, 'buffer'), { type: 'array', cellNF: true, cellStyles: true, cellDates: true });
+      wb.SheetNames.forEach(n => cleanSheet(wb.Sheets[n]));
+      return { name: `${base}_cleaned.xlsx`, data: XLSX.write(wb, { bookType: 'xlsx', type: 'array', compression: true }) };
+    }
+    const downloadOne = e => guard('Cleaning…', async () => { const f = await processFile(e); saveBlob(new Blob([f.data]), f.name); });
+    const downloadAll = () => guard('Cleaning files…', async () => {
+      const ready = entries.filter(e => !e.error && e.headers.some(drops));
+      if (ready.length === 1) { const f = await processFile(ready[0]); return saveBlob(new Blob([f.data]), f.name); }
+      const out = [];
+      for (const [i, e] of ready.entries()) { $('#busyMsg').textContent = `Cleaning ${i + 1} of ${ready.length}…`; await tick(); out.push(await processFile(e)); }
+      await saveZip(out, 'cleaned-files.zip');
+    });
+
+    const modeSel = select([['remove', 'Remove the selected columns'], ['keep', 'Keep only the selected columns']], mode, () => { mode = modeSel.value; save(); draw(); });
+    const count = h('span', { class: 'fchip' });
+    const chips = h('div', { class: 'chips' });
+    const empty = h('p', { class: 'muted', style: 'margin:0' }, 'Add files above and their columns will show up here.');
+    const extra = h('div', { class: 'chips' });
+    const extraWrap = h('div', { hidden: true }, h('p', { class: 'note' }, 'Also applied when found (not in the files above):'), extra);
+    const paste = h('input', { type: 'text', placeholder: 'e.g. case_id, author — or paste a header row from Excel', autocomplete: 'off', style: 'flex:1;min-width:220px' });
+    const addPasted = () => { const names = splitNames(paste.value); if (names.length) setPicked([...picked, ...names]); paste.value = ''; };
+    paste.addEventListener('keydown', ev => { if (ev.key === 'Enter') addPasted(); });
+    paste.addEventListener('paste', ev => { ev.preventDefault(); paste.value = ev.clipboardData.getData('text'); addPasted(); });
+    const list = h('ul', { class: 'file-list' });
+    const noFiles = h('p', { class: 'muted', style: 'margin:0' }, 'No files yet.');
+    const allBtn = btn('Download cleaned files', downloadAll);
+    const bar = h('div', { hidden: true }, actions(allBtn, btn('Clear files', () => { entries.length = 0; draw(); }, true)),
+      h('p', { class: 'note' }, 'Saved as name_cleaned.xlsx (or .csv). Values and number formats are kept; merged cells and sheet filters are reset. Your originals are not changed.'));
+
+    const chip = hd => {
+      const gone = drops(hd);
+      return h('button', { type: 'button', class: 'chip ' + (gone ? 'rm' : 'on'), title: gone ? 'Will be removed — click to change' : 'Will be kept — click to change', onclick: () => toggle(hd) },
+        h('span', { class: 'mk' }, gone ? '✕' : '✓'), hd);
+    };
+    function draw() {
+      const all = [];
+      entries.forEach(e => e.headers.forEach(hd => { if (!all.some(x => nrm(x) === nrm(hd))) all.push(hd); }));
+      chips.replaceChildren(...all.map(chip)); chips.hidden = !all.length; empty.hidden = !!all.length;
+      const ex = picked.filter(hd => !all.some(x => nrm(x) === nrm(hd)));
+      extra.replaceChildren(...ex.map(chip)); extraWrap.hidden = !ex.length;
+      count.textContent = `${picked.length} selected to ${mode === 'remove' ? 'remove' : 'keep'}`;
+      const removeEntry = i => () => { entries.splice(i, 1); draw(); };
+      list.replaceChildren(...entries.map((e, i) => {
+        if (e.error) return h('li', null, h('span', null, e.file.name, h('span', { class: 'muted' }, ` · could not read: ${e.error}`)), h('button', { title: 'Remove file', onclick: removeEntry(i) }, '✕'));
+        const n = e.headers.filter(drops).length;
+        return h('li', null, h('span', null, e.file.name, h('span', { class: 'muted' }, n ? ` · ${n} of ${e.headers.length} columns removed · ${e.rows.toLocaleString()} rows` : ' · nothing to remove')),
+          h('span', { style: 'display:flex;gap:6px;align-items:center' }, h('button', { class: 'btn ghost sm', disabled: !n, onclick: () => downloadOne(e) }, 'Download'),
+            h('button', { title: 'Remove file', onclick: removeEntry(i) }, '✕')));
+      }));
+      noFiles.hidden = !!entries.length;
+      const ready = entries.filter(e => !e.error && e.headers.some(drops)).length;
+      bar.hidden = !entries.length; allBtn.disabled = !ready;
+      allBtn.textContent = ready > 1 ? `Download ${ready} cleaned files (ZIP)` : 'Download cleaned file';
+    }
+    const zone = dropZone({ multiple: true, hint: 'XLSX, XLSM, XLS, ODS or CSV — add as many as you like', onFiles: fs => guard('Reading columns…', async () => {
+      for (const f of fs.filter(f => !f.name.startsWith('~$'))) entries.push(await readHeaders(f));
+      draw();
+    }) });
+    root.append(h('div', { class: 'flow' },
+      step(1, 'Add files', zone),
+      step(2, 'Choose columns', h('div', { class: 'opts', style: 'margin-bottom:12px' }, field('Mode', modeSel), count),
+        h('p', { class: 'note', style: 'margin-top:0' }, 'Click a column to switch it between kept (✓) and removed (✕). Your selection is remembered in this browser.'),
+        empty, chips,
+        h('details', { class: 'more-opts' }, h('summary', null, 'Paste column names'),
+          h('p', { class: 'note' }, 'One per line, comma-separated, or a header row copied from Excel — split automatically. Useful when you clean the same export every week.'),
+          h('div', { class: 'pair' }, paste, btn('Add', addPasted, true)), extraWrap,
+          actions(btn('Clear selection', () => setPicked([]), true)))),
+      step(3, 'Download', noFiles, list, bar)));
+    draw();
+  } });
+
 /* Combine columns */
 tool({ id: 'combine-columns', cat: 'data', ic: 'A+B', name: 'Combine Columns', desc: 'Join two or more columns into one with any separator — e.g. First + Last name.',
   render(root) {
@@ -899,17 +1027,17 @@ const ICONS = {
   wave: '<path d="M3 9c3-3 6 3 9 0s6 3 9 0M3 15c3-3 6 3 9 0s6 3 9 0"/>',
   join: '<rect x="3" y="7" width="6" height="10" rx="1.5"/><rect x="15" y="7" width="6" height="10" rx="1.5"/><path d="M9 12h6"/>',
   mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>',
+  colx: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M9.5 4.5v15M14.5 4.5v15"/><path d="m10.5 10 3 3m0-3-3 3"/>',
   shrink: '<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/>',
 };
 function icon(name) { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('viewBox', '0 0 24 24'); s.innerHTML = ICONS[name] || ICONS.table; return s; }
 const TOOL_ICON = {
   'excel-viewer': 'eye', 'merge-excel': 'merge', 'csv-merger': 'stack', 'excel-splitter': 'split', 'excel-to-csv': 'csv', 'csv-to-excel': 'table',
   'excel-to-json': 'braces', 'json-to-excel': 'json2', 'pdf-to-excel': 'pdf', 'image-to-excel': 'image', 'compare-excel': 'diff', 'remove-duplicates': 'dedupe',
-  vlookup: 'search', xlookup: 'target', hlookup: 'rows', 'multi-criteria-lookup': 'filter', 'fuzzy-lookup': 'wave', 'combine-columns': 'join', 'mail-merge': 'mail', 'compress-excel': 'shrink',
+  vlookup: 'search', xlookup: 'target', hlookup: 'rows', 'multi-criteria-lookup': 'filter', 'fuzzy-lookup': 'wave', 'combine-columns': 'join', 'remove-columns': 'colx', 'mail-merge': 'mail', 'compress-excel': 'shrink',
 };
 const tIcon = t => icon(TOOL_ICON[t.id]);
 
-/* file handed over from the home drop stage to the next tool that can use it */
 /* A file dropped on the home page is handed to the next tool page via IndexedDB (falls back to nothing). */
 const PENDING = {
   file: null,
@@ -938,14 +1066,14 @@ function suggestFor(file) {
   if (/\.pdf$/.test(n)) return ['pdf-to-excel'];
   if (file.type.startsWith('image/')) return ['image-to-excel'];
   if (/\.json$/.test(n)) return ['json-to-excel'];
-  if (/\.(csv|tsv|txt)$/.test(n)) return ['csv-to-excel', 'excel-viewer', 'remove-duplicates', 'vlookup', 'excel-splitter', 'compare-excel', 'combine-columns', 'excel-to-json', 'mail-merge'];
-  if (/\.(xlsx|xlsm|xlsb|xls|ods)$/.test(n)) return ['excel-viewer', 'remove-duplicates', 'vlookup', 'excel-to-csv', 'excel-splitter', 'compare-excel', 'combine-columns', 'excel-to-json', 'mail-merge', 'compress-excel'];
+  if (/\.(csv|tsv|txt)$/.test(n)) return ['csv-to-excel', 'excel-viewer', 'remove-columns', 'remove-duplicates', 'vlookup', 'excel-splitter', 'compare-excel', 'combine-columns', 'excel-to-json', 'mail-merge'];
+  if (/\.(xlsx|xlsm|xlsb|xls|ods)$/.test(n)) return ['excel-viewer', 'remove-columns', 'remove-duplicates', 'vlookup', 'excel-to-csv', 'excel-splitter', 'compare-excel', 'combine-columns', 'excel-to-json', 'mail-merge', 'compress-excel'];
   return [];
 }
 
 /* ---------- pages ---------- */
 const FEATURED = { 'merge-excel': 'hero wide', vlookup: 'wide', 'compare-excel': '', 'remove-duplicates': '' };
-const ORDER = ['merge-excel', 'vlookup', 'compare-excel', 'remove-duplicates', 'pdf-to-excel', 'excel-splitter', 'fuzzy-lookup', 'excel-viewer'];
+const ORDER = ['merge-excel', 'vlookup', 'compare-excel', 'remove-duplicates', 'remove-columns', 'pdf-to-excel', 'excel-splitter', 'fuzzy-lookup', 'excel-viewer'];
 function tile(t, extra = '') {
   return h('a', { class: 'tile ' + extra, href: '/' + t.id }, h('span', { class: 'tic' }, tIcon(t)), h('span', { class: 'go' }, icon('arrow')),
     h('h3', null, t.name), h('p', null, t.desc), h('span', { class: 'tag' }, CATS.find(c => c.id === t.cat).name.toLowerCase()));

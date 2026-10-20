@@ -165,6 +165,14 @@ export const TOOLS = [
     faq: [['How is similarity measured?', 'With edit (Levenshtein) distance: 100% means identical, 80% means about one character in five differs.'], ['Exact matches are found first?', 'Yes, fuzzy matching only runs for values without an exact match.'], ['It is slow on big files — why?', 'Each unmatched value is compared with every lookup value. Clean obvious differences first or split the file.']],
   },
   {
+    id: 'remove-columns', cat: 'data', name: 'Remove Columns', desc: 'Delete the same columns from many Excel or CSV files at once — click to pick, list is remembered.',
+    title: 'Remove Columns from Excel Files Online — Bulk Delete Columns',
+    meta: 'Delete unwanted columns from many Excel or CSV files at once. Click columns to remove or keep, paste a list of names, and download cleaned files as a ZIP. Free, no upload.',
+    intro: 'Strip the same unwanted columns out of a whole batch of exports in one go — IDs, tracking fields, personal data you shouldn’t share. Click columns to mark them, or paste a list of names once; your selection is remembered for next time. Values and number formats are kept, and originals are never changed.',
+    steps: ['Drop one or more Excel or CSV files — their columns appear as chips.', 'Click the columns to remove (or switch to “Keep only” mode), or paste a list of column names.', 'Download each cleaned file, or all of them together as a ZIP.'],
+    faq: [['Can I clean many files at once?', 'Yes. Add as many files as you like; the same column selection is applied to every file and every sheet in them.'], ['Does it remember my columns?', 'Yes, your selection is saved in this browser, so a weekly export can be cleaned in a few clicks.'], ['Is matching case-sensitive?', 'No. “Case ID”, “case id” and “case_id ” are matched ignoring case and surrounding spaces (but underscores must match).'], ['Is formatting kept?', 'Values and number formats are kept. Merged cells and sheet filters are reset, and macros in .xlsm files are not kept.']],
+  },
+  {
     id: 'combine-columns', cat: 'data', name: 'Combine Columns', desc: 'Join two or more columns into one with any separator — e.g. First + Last name.',
     title: 'Combine Columns in Excel Online — Concatenate Free',
     meta: 'Combine two or more Excel columns into one with any separator — e.g. First + Last name or full addresses. Skip blanks, remove originals. Free.',

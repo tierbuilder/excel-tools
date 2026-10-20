@@ -32,6 +32,7 @@ Key facts:
 - [HLOOKUP Tool](https://exceltools.gumber.ai/hlookup): Lookups for horizontal tables where headers run down the first column.
 - [Multi-Criteria Lookup](https://exceltools.gumber.ai/multi-criteria-lookup): Match rows on two or more columns at once, e.g. Name + Date.
 - [Excel Fuzzy Lookup](https://exceltools.gumber.ai/fuzzy-lookup): Match names that are almost the same — typos, abbreviations and spacing differences.
+- [Remove Columns](https://exceltools.gumber.ai/remove-columns): Delete the same columns from many Excel or CSV files at once — click to pick, list is remembered.
 - [Combine Columns](https://exceltools.gumber.ai/combine-columns): Join two or more columns into one with any separator — e.g. First + Last name.
 - [Mail Merge](https://exceltools.gumber.ai/mail-merge): Generate personalised letters, emails or messages from a spreadsheet and a template.
 

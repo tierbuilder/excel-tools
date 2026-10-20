@@ -354,6 +354,29 @@ FAQ:
 
 ---
 
+## Remove Columns
+URL: https://exceltools.gumber.ai/remove-columns
+Category: Clean, Compare & Lookup
+
+Strip the same unwanted columns out of a whole batch of exports in one go — IDs, tracking fields, personal data you shouldn’t share. Click columns to mark them, or paste a list of names once; your selection is remembered for next time. Values and number formats are kept, and originals are never changed.
+
+How to use:
+1. Drop one or more Excel or CSV files — their columns appear as chips.
+2. Click the columns to remove (or switch to “Keep only” mode), or paste a list of column names.
+3. Download each cleaned file, or all of them together as a ZIP.
+
+FAQ:
+- Q: Can I clean many files at once?
+  A: Yes. Add as many files as you like; the same column selection is applied to every file and every sheet in them.
+- Q: Does it remember my columns?
+  A: Yes, your selection is saved in this browser, so a weekly export can be cleaned in a few clicks.
+- Q: Is matching case-sensitive?
+  A: No. “Case ID”, “case id” and “case_id ” are matched ignoring case and surrounding spaces (but underscores must match).
+- Q: Is formatting kept?
+  A: Values and number formats are kept. Merged cells and sheet filters are reset, and macros in .xlsm files are not kept.
+
+---
+
 ## Combine Columns
 URL: https://exceltools.gumber.ai/combine-columns
 Category: Clean, Compare & Lookup

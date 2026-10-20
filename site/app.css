@@ -277,3 +277,10 @@ pre.out { background: var(--sunk); border: 1px solid var(--line); border-radius:
 .hobby u { text-underline-offset: 2px; }
 .hobby:hover { color: var(--brand); }
 .seo .more h3 { margin: 0 0 12px; }
+
+/* Remove Columns chips: kept (✓) vs removed (✕) */
+.chip.rm { background: var(--del); color: var(--del-ink); border-color: color-mix(in srgb, var(--del-ink) 40%, transparent); text-decoration: line-through; text-decoration-thickness: 1px; }
+.chip .mk { font-size: 11px; font-weight: 700; display: inline-block; }
+.more-opts { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+.more-opts summary { cursor: pointer; font-weight: 600; font-size: 14px; color: var(--ink-2); }
+.btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }

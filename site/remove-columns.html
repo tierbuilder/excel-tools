@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remove Columns from Excel Files Online — Bulk Delete Columns | Excel Tools by gumber.ai</title>
+<meta name="description" content="Delete unwanted columns from many Excel or CSV files at once. Click columns to remove or keep, paste a list of names, and download cleaned files as a ZIP. Free, no upload.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://exceltools.gumber.ai/remove-columns">
+<meta name="theme-color" content="#5b4bff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Excel Tools by gumber.ai">
+<meta property="og:title" content="Remove Columns from Excel Files Online — Bulk Delete Columns | Excel Tools by gumber.ai">
+<meta property="og:description" content="Delete unwanted columns from many Excel or CSV files at once. Click columns to remove or keep, paste a list of names, and download cleaned files as a ZIP. Free, no upload.">
+<meta property="og:url" content="https://exceltools.gumber.ai/remove-columns">
+<meta property="og:image" content="https://exceltools.gumber.ai/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Remove Columns from Excel Files Online — Bulk Delete Columns | Excel Tools by gumber.ai">
+<meta name="twitter:description" content="Delete unwanted columns from many Excel or CSV files at once. Click columns to remove or keep, paste a list of names, and download cleaned files as a ZIP. Free, no upload.">
+<meta name="twitter:image" content="https://exceltools.gumber.ai/og.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="text/plain" title="LLM summary" href="/llms.txt">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Remove Columns","url":"https://exceltools.gumber.ai/remove-columns","description":"Delete unwanted columns from many Excel or CSV files at once. Click columns to remove or keep, paste a list of names, and download cleaned files as a ZIP. Free, no upload.","applicationCategory":"BusinessApplication","operatingSystem":"Any (runs in a web browser)","browserRequirements":"Requires JavaScript and a modern browser","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@id":"https://exceltools.gumber.ai/#org"},"featureList":"Drop one or more Excel or CSV files — their columns appear as chips. Click the columns to remove (or switch to “Keep only” mode), or paste a list of column names. Download each cleaned file, or all of them together as a ZIP."},{"@type":"HowTo","name":"How to use Remove Columns","step":[{"@type":"HowToStep","position":1,"text":"Drop one or more Excel or CSV files — their columns appear as chips."},{"@type":"HowToStep","position":2,"text":"Click the columns to remove (or switch to “Keep only” mode), or paste a list of column names."},{"@type":"HowToStep","position":3,"text":"Download each cleaned file, or all of them together as a ZIP."}],"totalTime":"PT1M","tool":{"@type":"HowToTool","name":"A modern web browser"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I clean many files at once?","acceptedAnswer":{"@type":"Answer","text":"Yes. Add as many files as you like; the same column selection is applied to every file and every sheet in them."}},{"@type":"Question","name":"Does it remember my columns?","acceptedAnswer":{"@type":"Answer","text":"Yes, your selection is saved in this browser, so a weekly export can be cleaned in a few clicks."}},{"@type":"Question","name":"Is matching case-sensitive?","acceptedAnswer":{"@type":"Answer","text":"No. “Case ID”, “case id” and “case_id ” are matched ignoring case and surrounding spaces (but underscores must match)."}},{"@type":"Question","name":"Is formatting kept?","acceptedAnswer":{"@type":"Answer","text":"Values and number formats are kept. Merged cells and sheet filters are reset, and macros in .xlsm files are not kept."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Excel tools","item":"https://exceltools.gumber.ai/"},{"@type":"ListItem","position":2,"name":"Remove Columns","item":"https://exceltools.gumber.ai/remove-columns"}]},{"@type":"Organization","@id":"https://exceltools.gumber.ai/#org","name":"gumber.ai","url":"https://gumber.ai"}]}</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script defer src="/app.js"></script>
+</head>
+<body data-page="remove-columns">
+<a class="skip" href="#app">Skip to content</a>
+<div class="shell">
+  <div class="mbar">
+    <button class="icon-btn" id="menuBtn" aria-label="Open menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a href="/" class="logo"><span class="mark"></span>Excel Tools</a>
+    <button class="icon-btn" id="mPalette" aria-label="Search tools"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg></button>
+  </div>
+  <aside class="side" id="side" aria-label="Tools">
+    <a href="/" class="logo"><span class="mark"></span>Excel Tools <span class="by">by gumber.ai</span></a>
+    <button class="find" id="findBtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg>Find a tool<kbd>⌘K</kbd></button>
+    <nav id="sideNav"><div class="nav-group"><h6>Convert</h6><a class="nav-item" href="/excel-to-csv" data-tool="excel-to-csv">Excel to CSV</a><a class="nav-item" href="/csv-to-excel" data-tool="csv-to-excel">CSV to Excel</a><a class="nav-item" href="/excel-to-json" data-tool="excel-to-json">Excel to JSON</a><a class="nav-item" href="/json-to-excel" data-tool="json-to-excel">JSON to Excel</a><a class="nav-item" href="/pdf-to-excel" data-tool="pdf-to-excel">PDF to Excel</a><a class="nav-item" href="/image-to-excel" data-tool="image-to-excel">Image to Excel (OCR)</a></div><div class="nav-group"><h6>Merge &amp; Split</h6><a class="nav-item" href="/merge-excel" data-tool="merge-excel">Merge Excel Files</a><a class="nav-item" href="/csv-merger" data-tool="csv-merger">CSV Merger</a><a class="nav-item" href="/excel-splitter" data-tool="excel-splitter">Excel Splitter</a></div><div class="nav-group"><h6>Clean, Compare &amp; Lookup</h6><a class="nav-item" href="/compare-excel" data-tool="compare-excel">Compare Excel Files</a><a class="nav-item" href="/remove-duplicates" data-tool="remove-duplicates">Remove Duplicates</a><a class="nav-item" href="/vlookup" data-tool="vlookup">Excel VLOOKUP</a><a class="nav-item" href="/xlookup" data-tool="xlookup">XLOOKUP / INDEX-MATCH</a><a class="nav-item" href="/hlookup" data-tool="hlookup">HLOOKUP Tool</a><a class="nav-item" href="/multi-criteria-lookup" data-tool="multi-criteria-lookup">Multi-Criteria Lookup</a><a class="nav-item" href="/fuzzy-lookup" data-tool="fuzzy-lookup">Excel Fuzzy Lookup</a><a class="nav-item on" href="/remove-columns" data-tool="remove-columns">Remove Columns</a><a class="nav-item" href="/combine-columns" data-tool="combine-columns">Combine Columns</a><a class="nav-item" href="/mail-merge" data-tool="mail-merge">Mail Merge</a></div><div class="nav-group"><h6>View &amp; Optimize</h6><a class="nav-item" href="/excel-viewer" data-tool="excel-viewer">Online Excel Viewer</a><a class="nav-item" href="/compress-excel" data-tool="compress-excel">Compress Excel</a></div></nav>
+    <div class="side-foot">
+      <div class="local"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><div><b>Local-only</b><span>Files never leave this device</span></div></div>
+      <a class="hobby" href="/about">Free hobby project · <u>limits &amp; disclaimer</u></a>
+      <div class="foot-row"><span>© <span id="yr">2026</span> gumber.ai</span><button class="icon-btn sm" id="themeBtn" aria-label="Toggle theme"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button></div>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <main class="main">
+    <div id="app"><header class="tool-head"><div><div class="crumb"><a href="/">tools</a> / clean, compare &amp; lookup</div><h1>Remove Columns</h1><p>Delete the same columns from many Excel or CSV files at once — click to pick, list is remembered.</p></div></header><noscript><p class="warn">This tool needs JavaScript. Your files are processed locally in your browser.</p></noscript></div>
+    <article class="seo">
+<section><h2>About Remove Columns</h2><p>Strip the same unwanted columns out of a whole batch of exports in one go — IDs, tracking fields, personal data you shouldn’t share. Click columns to mark them, or paste a list of names once; your selection is remembered for next time. Values and number formats are kept, and originals are never changed.</p></section>
+<section><h2>How to use Remove Columns</h2><ol><li>Drop one or more Excel or CSV files — their columns appear as chips.</li><li>Click the columns to remove (or switch to “Keep only” mode), or paste a list of column names.</li><li>Download each cleaned file, or all of them together as a ZIP.</li></ol></section>
+<section><h2>Limitations</h2><ul><li>Everything runs in your browser’s memory, so the practical file size depends on your device. As a rough guide: up to ~50 MB or ~500,000 rows works well on a modern laptop; phones and tablets handle much less.</li><li>Very large files can make the tab slow or crash. If that happens, split the file first or use a desktop computer.</li><li>Outputs keep values and formulas’ results but not formatting, charts, images, pivot tables or macros.</li></ul><p><a href="/about#limitations">See all limitations</a></p></section>
+<section><h2>Frequently asked questions</h2><details><summary>Can I clean many files at once?</summary><p>Yes. Add as many files as you like; the same column selection is applied to every file and every sheet in them.</p></details><details><summary>Does it remember my columns?</summary><p>Yes, your selection is saved in this browser, so a weekly export can be cleaned in a few clicks.</p></details><details><summary>Is matching case-sensitive?</summary><p>No. “Case ID”, “case id” and “case_id ” are matched ignoring case and surrounding spaces (but underscores must match).</p></details><details><summary>Is formatting kept?</summary><p>Values and number formats are kept. Merged cells and sheet filters are reset, and macros in .xlsm files are not kept.</p></details></section>
+<p class="disclaimer"><strong>Disclaimer:</strong> Excel Tools by gumber.ai is a hobby project and is completely free to use. It is provided “as is”, without warranty of any kind. Always double-check results before relying on them, and keep a copy of your original files.</p>
+<section class="more"><h3>Related tools</h3><div class="bento"><a class="tile" href="/compare-excel"><h3>Compare Excel Files</h3><p>Spot changed cells, added rows and removed rows between two versions of a sheet.</p></a><a class="tile" href="/remove-duplicates"><h3>Remove Duplicates</h3><p>Find and remove duplicate rows based on all columns or just the ones you pick.</p></a><a class="tile" href="/vlookup"><h3>Excel VLOOKUP</h3><p>Pull matching values from a second table into your sheet — no formulas, no #REF errors.</p></a><a class="tile" href="/xlookup"><h3>XLOOKUP / INDEX-MATCH</h3><p>Look up any column in any direction and return one or many result columns.</p></a></div></section>
+</article>
+    <footer class="site-foot">
+      <p><strong>Excel Tools by gumber.ai</strong> — Free, private Excel &amp; CSV tools that run in your browser.</p>
+      <p>Excel Tools by gumber.ai is a hobby project and is completely free to use. It is provided “as is”, without warranty of any kind. Always double-check results before relying on them, and keep a copy of your original files. <a href="/about">Limitations &amp; disclaimer</a> · <a href="/llms.txt">llms.txt</a> · <a href="/sitemap.xml">Sitemap</a></p>
+    </footer>
+  </main>
+</div>
+<div id="palette" class="palette" hidden>
+  <div class="pal-box" role="dialog" aria-label="Find a tool">
+    <input id="palInput" type="text" placeholder="Type a tool name… e.g. vlookup, merge, pdf" autocomplete="off" aria-label="Search tools">
+    <ul id="palList"></ul>
+    <div class="pal-hint"><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
+  </div>
+</div>
+<div id="busy" class="busy" hidden><div class="bar"><i></i></div><div id="busyMsg">Working…</div></div>
+<div id="toast" class="toast" hidden role="status"></div>
+</body>
+</html>
